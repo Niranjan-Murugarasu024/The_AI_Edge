@@ -2015,9 +2015,9 @@
     // Expose reset to global scope for any inline triggers
     window.resetFilters = resetFilters;
 
-    // Newsletter Handler
-    window.handleSubscribe = function() {
-      if (!subEmail || !subToast) return;
+    // Newsletter Handler with Real SMTP Backend Integration
+    window.handleSubscribe = async function() {
+      if (!subEmail || !subToast || !subBtn) return;
       const email = subEmail.value.trim();
       
       if (!email || !subEmail.checkValidity()) {
@@ -2028,18 +2028,66 @@
         return;
       }
 
-      // Successful simulated subscription UI
+      // Set Loading UI State
       subBtn.disabled = true;
+      const originalBtnText = subBtn.textContent;
       subBtn.textContent = 'Subscribing...';
-      
-      setTimeout(function() {
+      subToast.style.display = 'block';
+      subToast.style.color = '#C8A880';
+      subToast.textContent = 'Connecting to SMTP dispatch server...';
+
+      // Dynamic API endpoint resolution (works on port 3000, Live Server port 5500/8080, and Netlify)
+      let apiUrl = '/api/subscribe';
+      if (window.location.protocol === 'file:' || (window.location.hostname === 'localhost' && window.location.port && window.location.port !== '3000' && window.location.port !== '8888')) {
+        apiUrl = 'http://localhost:3000/api/subscribe';
+      }
+
+      try {
+        const response = await fetch(apiUrl, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json',
+          },
+          body: JSON.stringify({ email: email }),
+        });
+
+        const data = await response.json();
+
+        if (response.ok && data.success) {
+          subBtn.disabled = false;
+          subBtn.textContent = 'Subscribed ✓';
+          subToast.style.color = '#E8C88A';
+          
+          let previewHtml = '';
+          if (data.previewUrl) {
+            previewHtml = ` <a href="${data.previewUrl}" target="_blank" style="color:#C8A880;text-decoration:underline;margin-left:6px;">[View Test Email Preview ↗]</a>`;
+          }
+
+          subToast.innerHTML = `✓ <strong>Thank you.</strong> Your subscription for <em>${email}</em> has been confirmed. A welcome intelligence dispatch has been delivered to your inbox.${previewHtml}`;
+          subEmail.value = '';
+
+          // Reset button text after 6 seconds
+          setTimeout(function() {
+            if (subBtn.textContent === 'Subscribed ✓') {
+              subBtn.textContent = 'Subscribe Free ➔';
+            }
+          }, 6000);
+        } else {
+          throw new Error(data.error || 'Failed to complete subscription. Please try again.');
+        }
+      } catch (err) {
+        console.error('Subscription error:', err);
         subBtn.disabled = false;
-        subBtn.textContent = 'Subscribed ✓';
+        subBtn.textContent = originalBtnText || 'Subscribe Free ➔';
         subToast.style.display = 'block';
-        subToast.style.color = '#E8C88A';
-        subToast.innerHTML = `✓ <strong>Thank you.</strong> Your subscription preference for <em>${email}</em> has been recorded. You will receive all forthcoming intelligence dispatches directly.`;
-        subEmail.value = '';
-      }, 400);
+        subToast.style.color = '#E88A8A';
+        if (err.message && err.message.includes('Failed to fetch')) {
+          subToast.innerHTML = '⚠️ <strong>Server Connection Failed:</strong> Please ensure the local server is running with <code>npm start</code> in your terminal.';
+        } else {
+          subToast.textContent = err.message || 'Unable to connect to the subscription server. Please try again.';
+        }
+      }
     };
 
   })();

@@ -1,0 +1,27 @@
+{
+  "name": "ai-edge-newsletter",
+  "version": "1.0.0",
+  "description": "The AI Edge - Strategic AI Journal & Newsletter Subscription System",
+  "main": "server.js",
+  "type": "commonjs",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node --watch server.js",
+    "test:smtp": "node scripts/test-smtp.js"
+  },
+  "keywords": [
+    "ai-edge",
+    "newsletter",
+    "smtp",
+    "nodemailer",
+    "netlify-functions"
+  ],
+  "author": "The AI Edge",
+  "license": "ISC",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.7",
+    "express": "^4.21.2",
+    "nodemailer": "^6.10.0"
+  }
+}

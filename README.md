@@ -101,3 +101,120 @@ If you want to avoid dragging the folder every time:
 2. Link your Netlify site to that GitHub repository under **Site Configuration -> Build & Deploy -> Continuous Deployment**.
 3. Every time you save a new file and run `git push`, Netlify will automatically detect the changes and rebuild only the modified files.
 
+---
+
+## 📧 Newsletter Subscription & SMTP Setup Guide
+
+The website includes a production-ready **SMTP Newsletter Subscription System** that automatically validates subscriber emails and delivers a responsive, luxury editorial welcome email to their inbox.
+
+### ⚙️ Architecture Overview
+* **Frontend (`index.html`):** Async AJAX form submission (`POST /api/subscribe`) with dynamic loading, success confirmations, and error diagnostics.
+* **Serverless Function (`netlify/functions/subscribe.js`):** Production serverless endpoint on Netlify.
+* **Local Express Server (`server.js`):** For local development and Node.js VPS hosting.
+* **Email Engine (`lib/mailer.js` & `templates/welcomeEmail.js`):** Nodemailer SMTP transport with custom Warm Dark Editorial HTML email template and plain-text fallback.
+
+---
+
+### 🔑 Step 1: Configure Your SMTP Credentials
+
+Copy `.env.example` to `.env`:
+```bash
+cp .env.example .env
+```
+
+Open `.env` and configure your preferred email provider:
+
+#### Option A: Gmail (Recommended for Quick Testing)
+1. Go to your **[Google Account](https://myaccount.google.com/)** ➔ **Security**.
+2. Enable **2-Step Verification** (if not already enabled).
+3. Search for **"App Passwords"** (or visit `https://myaccount.google.com/apppasswords`).
+4. Name the App Password (e.g. `The AI Edge Newsletter`) and click **Create**.
+5. Copy the 16-character generated password (e.g., `abcd efgh ijkl mnop`).
+6. Update `.env`:
+   ```env
+   SMTP_HOST=smtp.gmail.com
+   SMTP_PORT=587
+   SMTP_SECURE=false
+   SMTP_USER=your_gmail_address@gmail.com
+   SMTP_PASS=your_16_character_app_password
+   SMTP_FROM_NAME="The AI Edge Editorial"
+   SMTP_FROM_EMAIL="your_gmail_address@gmail.com"
+   ```
+
+#### Option B: Brevo / Sendinblue (Free 300 emails/day)
+1. Sign up at [Brevo.com](https://www.brevo.com/).
+2. Go to **SMTP & API** ➔ **SMTP**.
+3. Copy your SMTP Login, Master Password/Key, and set:
+   ```env
+   SMTP_HOST=smtp-relay.brevo.com
+   SMTP_PORT=587
+   SMTP_SECURE=false
+   SMTP_USER=your_brevo_login
+   SMTP_PASS=your_brevo_smtp_key
+   SMTP_FROM_NAME="The AI Edge Editorial"
+   SMTP_FROM_EMAIL="verified_sender@yourdomain.com"
+   ```
+
+#### Option C: SendGrid
+```env
+SMTP_HOST=smtp.sendgrid.net
+SMTP_PORT=587
+SMTP_SECURE=false
+SMTP_USER=apikey
+SMTP_PASS=SG.your_sendgrid_api_key
+SMTP_FROM_NAME="The AI Edge Editorial"
+SMTP_FROM_EMAIL="verified_sender@yourdomain.com"
+```
+
+#### Option D: Resend
+```env
+SMTP_HOST=smtp.resend.com
+SMTP_PORT=465
+SMTP_SECURE=true
+SMTP_USER=resend
+SMTP_PASS=re_your_resend_api_key
+SMTP_FROM_NAME="The AI Edge Editorial"
+SMTP_FROM_EMAIL="onboarding@resend.dev"
+```
+
+---
+
+### 🧪 Step 2: Test & Verify Your SMTP Setup
+
+Run the built-in diagnostic test tool:
+```bash
+# Test with your configured credentials or auto-generated Ethereal preview
+npm run test:smtp
+
+# Or test sending directly to your personal email:
+npm run test:smtp your.email@example.com
+```
+
+---
+
+### 💻 Step 3: Run Locally
+
+Start the local server:
+```bash
+npm start
+```
+Open **`http://localhost:3000`** in your browser, enter an email in the subscription box, and click **"Subscribe Free ➔"**.
+
+---
+
+### ☁️ Step 4: Configure Netlify for Production
+
+When deploying to Netlify:
+1. In your **Netlify Dashboard**, select your site.
+2. Navigate to **Site configuration** ➔ **Environment variables** ➔ **Add a variable**.
+3. Add the following variables matching your `.env`:
+   - `SMTP_HOST`
+   - `SMTP_PORT`
+   - `SMTP_SECURE`
+   - `SMTP_USER`
+   - `SMTP_PASS`
+   - `SMTP_FROM_NAME`
+   - `SMTP_FROM_EMAIL`
+   - `SMTP_REPLY_TO`
+4. Netlify will automatically build `netlify/functions/subscribe.js` and route all `/api/subscribe` form requests directly to your secure SMTP function!
+
