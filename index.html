@@ -1,0 +1,1824 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="The AI Edge — An independent monthly intelligence publication exploring autonomous agents, small language models, enterprise AI economics, and legal & compliance revolutions.">
+<meta property="og:title" content="The AI Edge — Where AI Strategy Meets the Future">
+<meta property="og:description" content="Explore published issues of The AI Edge: In-depth, evidence-based analysis of AI technology, enterprise disruption, and strategic roadmaps.">
+<meta property="og:type" content="website">
+<title>The AI Edge — Where AI Strategy Meets the Future</title>
+
+<!-- FAVICON SUITE -->
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="shortcut icon" href="favicon.ico">
+
+<!-- TYPOGRAPHY FONTS -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,800;0,900;1,400;1,600;1,700;1,800&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500;1,600&family=Space+Mono:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+  /* ═════════════════════════════════════════════════════════════════════════
+     1. RESET & BRAND DESIGN TOKENS (STRICTLY LOCKED PALETTE)
+     ═════════════════════════════════════════════════════════════════════════ */
+  *, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  :root {
+    --bg:          #F8F5F1; /* Warm Archival Cream */
+    --outer-bg:    #EDEAE5; /* Outer Canvas */
+    --dark:        #1E0E06; /* Deep Espresso */
+    --card-bg:     #FFFFFF; /* Crisp Clean Paper Layer */
+    --floor:       #FAF7F2; /* Subtle Tone Offset */
+    --ink:         #1A1714; /* Primary Text (High Contrast) */
+    --ink2:        #3D3731; /* Secondary Editorial Text (Crisp & Readable) */
+    --ink3:        #5C554E; /* Meta / Timestamp (Clear & Legible) */
+    --red:         #B83200; /* Burnt Vermillion Primary Accent */
+    --red-hover:   #942800;
+    --red-pale:    #FBF0EB; /* Subtle Red Wash Fill */
+    --red-mid:     #E8D4CB; /* Muted Red Rule & Border */
+    --gold:        #A07828; /* Warm Gold Tone */
+    --gold-pale:   #FBF4E8; /* Gold Background Tint */
+    --gold-border: #D4B87A;
+    --border:      #DDD8D2; /* Standard Divider Border */
+    --border-dark: #3D2214;
+    
+    /* TYPOGRAPHY TOKENS */
+    --serif:       'Playfair Display', Georgia, serif;
+    --body:        'Lora', Georgia, serif;
+    --mono:        'Space Mono', 'Courier New', monospace;
+
+    /* LAYOUT & SPACING TOKENS */
+    --site-max-w:  1120px;
+    --transition:  0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  html {
+    font-size: 17px;
+    background: var(--outer-bg);
+    color-scheme: light;
+    scroll-behavior: smooth;
+  }
+
+  body {
+    background: var(--outer-bg);
+    color: var(--ink);
+    font-family: var(--body);
+    line-height: 1.8;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+
+  /* ═════════════════════════════════════════════════════════════════════════
+     2. ACCESSIBILITY & FOCUS STYLES
+     ═════════════════════════════════════════════════════════════════════════ */
+  :focus-visible {
+    outline: 2px solid var(--red);
+    outline-offset: 3px;
+  }
+
+  .skip-to-content {
+    position: absolute;
+    top: -60px;
+    left: 20px;
+    background: var(--red);
+    color: #FFF;
+    padding: 12px 20px;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    z-index: 1000;
+    text-decoration: none;
+    transition: top 0.2s ease;
+    border-radius: 0 0 4px 4px;
+  }
+  .skip-to-content:focus {
+    top: 0;
+  }
+
+  /* ═════════════════════════════════════════════════════════════════════════
+     3. STICKY TOP UTILITY & NAVIGATION STRIP (EASY-TO-READ TYPOGRAPHY)
+     ═════════════════════════════════════════════════════════════════════════ */
+  .top-strip-wrapper {
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    background: var(--dark);
+    border-bottom: 1px solid var(--border-dark);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  }
+
+  .top-strip {
+    max-width: var(--site-max-w);
+    margin: 0 auto;
+    padding: 12px 32px;
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    color: #E2D7C5;
+  }
+
+  .top-strip-left, .top-strip-right {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    flex-wrap: wrap;
+  }
+
+  .journal-vol {
+    color: #E8C88A;
+    font-weight: 700;
+  }
+
+  .strip-divider {
+    color: rgba(200, 184, 154, 0.45);
+  }
+
+  .pulse-indicator {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: #FFF;
+    font-weight: 700;
+  }
+
+  .pulse-dot {
+    width: 8px;
+    height: 8px;
+    background: var(--red);
+    border-radius: 50%;
+    box-shadow: 0 0 8px var(--red);
+    animation: blink 2.2s infinite ease-in-out;
+  }
+
+  @keyframes blink {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.35; transform: scale(0.8); }
+  }
+
+  .top-nav-link {
+    color: #E2D7C5;
+    text-decoration: none;
+    padding: 3px 6px;
+    font-weight: 700;
+    transition: color var(--transition);
+    position: relative;
+  }
+  .top-nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 0;
+    height: 2px;
+    background: var(--red);
+    transition: width var(--transition);
+  }
+  .top-nav-link:hover {
+    color: #FFF;
+  }
+  .top-nav-link:hover::after {
+    width: 100%;
+  }
+
+  .top-reading-progress {
+    height: 3px;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.1);
+    position: relative;
+  }
+  .top-reading-progress-bar {
+    height: 100%;
+    width: 0%;
+    background: linear-gradient(90deg, var(--gold), var(--red));
+    transition: width 0.1s linear;
+  }
+
+  /* ═════════════════════════════════════════════════════════════════════════
+     4. MAIN JOURNAL CONTAINER
+     ═════════════════════════════════════════════════════════════════════════ */
+  .journal-container {
+    max-width: var(--site-max-w);
+    width: 100%;
+    margin: 28px auto 48px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    box-shadow: 0 10px 45px rgba(0, 0, 0, 0.06), 0 1px 3px rgba(0, 0, 0, 0.04);
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+  }
+
+  /* ═════════════════════════════════════════════════════════════════════════
+     5. EDITORIAL MASTHEAD (COMFORTABLE & PROMINENT)
+     ═════════════════════════════════════════════════════════════════════════ */
+  .masthead {
+    padding: 44px 56px 36px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    background: var(--bg);
+    position: relative;
+  }
+
+  .masthead-folio-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    color: var(--ink2);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 14px;
+    margin-bottom: 30px;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .logo-wrapper {
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    margin: 6px auto 26px;
+    position: relative;
+    max-width: 480px;
+    width: 100%;
+    text-decoration: none;
+    transition: transform 0.3s ease, opacity 0.3s ease;
+  }
+  .logo-wrapper:hover {
+    transform: translateY(-2px);
+    opacity: 0.96;
+  }
+
+  .brand-logo-img {
+    width: 100%;
+    height: auto;
+    max-height: 190px;
+    object-fit: contain;
+    display: block;
+  }
+
+  .masthead-rule-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 16px;
+    max-width: 680px;
+    margin: 0 auto 20px;
+  }
+
+  .masthead-rule-line {
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), var(--red-mid));
+  }
+  .masthead-rule-line.right {
+    background: linear-gradient(90deg, var(--red-mid), var(--border), transparent);
+  }
+
+  .masthead-rule-glyph {
+    color: var(--red);
+    font-size: 11px;
+    letter-spacing: 5px;
+  }
+
+  .masthead-tagline {
+    font-family: var(--mono);
+    font-size: 14px;
+    letter-spacing: 3.5px;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+    font-weight: 700;
+  }
+
+  .masthead-desc {
+    font-family: var(--body);
+    font-size: 18px;
+    color: var(--ink);
+    max-width: 720px;
+    margin: 0 auto 24px;
+    line-height: 1.8;
+    font-style: italic;
+  }
+
+  .masthead-metadata-bar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ink2);
+    font-weight: 700;
+    padding-top: 16px;
+    border-top: 1px dashed var(--border);
+    flex-wrap: wrap;
+  }
+  .masthead-metadata-bar span.accent {
+    color: var(--gold);
+  }
+
+  /* ═════════════════════════════════════════════════════════════════════════
+     6. EDITORIAL CREDIBILITY & METRICS STRIP
+     ═════════════════════════════════════════════════════════════════════════ */
+  .metrics-strip {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    background: var(--dark);
+    color: #F0E8DC;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .metric-item {
+    padding: 24px 18px;
+    text-align: center;
+    border-right: 1px solid rgba(255, 255, 255, 0.08);
+    transition: background var(--transition);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+  .metric-item:last-child {
+    border-right: none;
+  }
+  .metric-item:hover {
+    background: #281308;
+  }
+
+  .metric-val {
+    font-family: var(--serif);
+    font-size: 38px;
+    font-weight: 800;
+    color: #E8C88A;
+    line-height: 1.1;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+  }
+
+  .metric-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #D6CAB8;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    font-weight: 700;
+  }
+
+  /* ═════════════════════════════════════════════════════════════════════════
+     7. EDITORIAL CONTENT AREA
+     ═════════════════════════════════════════════════════════════════════════ */
+  .content-area {
+    padding: 48px 56px 64px;
+  }
+
+  .section-label-bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 16px;
+    margin-bottom: 24px;
+    padding-bottom: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .section-label {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--red);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section-label::before {
+    content: '■';
+    font-size: 9px;
+    color: var(--red);
+  }
+
+  .section-date-meta {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ink2);
+    font-weight: 700;
+  }
+
+  /* ═════════════════════════════════════════════════════════════════════════
+     8. FEATURED COVER INVESTIGATION (ISSUE #03)
+     ═════════════════════════════════════════════════════════════════════════ */
+  .featured-section {
+    margin-bottom: 56px;
+  }
+
+  .featured-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-top: 4px solid var(--red);
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.04);
+    text-decoration: none;
+    color: inherit;
+    display: grid;
+    grid-template-columns: 1fr 340px;
+    gap: 0;
+    transition: box-shadow var(--transition), transform var(--transition), border-color var(--transition);
+    overflow: hidden;
+  }
+  .featured-card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 12px 36px rgba(0, 0, 0, 0.08);
+    border-color: #C8B89A;
+    border-top-color: var(--red);
+  }
+
+  .featured-main {
+    padding: 40px 44px;
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .featured-badge-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 18px;
+    flex-wrap: wrap;
+  }
+
+  .badge-primary {
+    background: var(--red);
+    color: #FFF;
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 4px 10px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .badge-secondary {
+    background: var(--red-pale);
+    color: var(--red);
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border: 0.5px solid var(--red-mid);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .badge-gold {
+    background: var(--gold-pale);
+    color: var(--gold);
+    font-family: var(--mono);
+    font-size: 11.5px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border: 0.5px solid var(--gold-border);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .featured-title {
+    font-family: var(--serif);
+    font-size: clamp(28px, 4vw, 38px);
+    font-weight: 800;
+    line-height: 1.18;
+    color: var(--ink);
+    margin-bottom: 10px;
+    letter-spacing: -0.5px;
+    transition: color var(--transition);
+  }
+  .featured-card:hover .featured-title {
+    color: var(--red);
+  }
+
+  .featured-subtitle {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-style: italic;
+    color: var(--ink2);
+    margin-bottom: 20px;
+    line-height: 1.4;
+  }
+
+  .featured-deck {
+    font-family: var(--body);
+    font-size: 16.5px;
+    color: var(--ink);
+    line-height: 1.8;
+    margin-bottom: 26px;
+    border-left: 3px solid var(--red-mid);
+    padding-left: 18px;
+  }
+
+  .featured-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-top: 20px;
+    border-top: 1px solid var(--border);
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    flex-wrap: wrap;
+    gap: 12px;
+  }
+
+  .cta-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--red);
+    color: #FFF;
+    padding: 11px 22px;
+    font-weight: 700;
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    transition: all var(--transition);
+  }
+  .featured-card:hover .cta-btn {
+    background: var(--red-hover);
+    gap: 12px;
+  }
+
+  .featured-meta-info {
+    color: var(--ink2);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  /* FEATURED SIDEBAR / HIGHLIGHTS */
+  .featured-sidebar {
+    background: var(--floor);
+    padding: 38px 30px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    border-left: 1px solid var(--border);
+  }
+
+  .sidebar-header {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: var(--gold);
+    margin-bottom: 16px;
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .sidebar-insights {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    font-size: 14px;
+    color: var(--ink2);
+    line-height: 1.6;
+  }
+
+  .sidebar-insights li {
+    position: relative;
+    padding-left: 16px;
+  }
+  .sidebar-insights li::before {
+    content: '◆';
+    color: var(--red);
+    font-size: 8px;
+    position: absolute;
+    left: 0;
+    top: 5px;
+  }
+  .sidebar-insights li strong {
+    color: var(--ink);
+    font-family: var(--mono);
+    font-size: 12.5px;
+    display: block;
+    margin-bottom: 3px;
+    font-weight: 700;
+  }
+
+  .sidebar-pullquote {
+    margin-top: 22px;
+    padding-top: 18px;
+    border-top: 1px solid var(--border);
+    font-family: var(--serif);
+    font-size: 15px;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.55;
+  }
+  .sidebar-pullquote cite {
+    display: block;
+    font-family: var(--mono);
+    font-size: 11px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ink2);
+    font-weight: 700;
+    margin-top: 8px;
+    font-style: normal;
+  }
+
+  /* ═════════════════════════════════════════════════════════════════════════
+     9. PUBLICATION ARCHIVE / DOSSIER INDEX
+     ═════════════════════════════════════════════════════════════════════════ */
+  .feed-section {
+    margin-bottom: 56px;
+  }
+
+  .feed-controls-box {
+    background: var(--floor);
+    border: 1px solid var(--border);
+    padding: 22px 26px;
+    margin-bottom: 26px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  .search-wrapper {
+    position: relative;
+    width: 100%;
+  }
+
+  .search-input {
+    width: 100%;
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    padding: 13px 44px 13px 44px;
+    font-family: var(--mono);
+    font-size: 13.5px;
+    color: var(--ink);
+    outline: none;
+    transition: border-color var(--transition), box-shadow var(--transition);
+  }
+  .search-input:focus {
+    border-color: var(--red);
+    box-shadow: 0 0 0 3px var(--red-pale);
+  }
+  .search-input::placeholder {
+    color: var(--ink3);
+  }
+
+  .search-icon {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: var(--ink3);
+    font-size: 15px;
+    pointer-events: none;
+  }
+
+  .search-clear-btn {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    background: none;
+    border: none;
+    color: var(--ink2);
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    cursor: pointer;
+    padding: 6px 10px;
+    display: none;
+  }
+  .search-clear-btn:hover {
+    color: var(--red);
+  }
+
+  .filter-taxonomy {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+
+  .filter-pills {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .filter-btn {
+    background: #FFFFFF;
+    color: var(--ink2);
+    border: 1px solid var(--border);
+    padding: 8px 16px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 700;
+    transition: all var(--transition);
+  }
+  .filter-btn:hover {
+    color: var(--ink);
+    border-color: var(--ink2);
+  }
+  .filter-btn.active {
+    background: var(--dark);
+    color: #F0E8DC;
+    border-color: var(--dark);
+  }
+
+  .feed-status-line {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ink2);
+    font-weight: 700;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .issues-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  /* ISSUE ENTRY CARD */
+  .issue-entry {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--border);
+    padding: 30px 36px;
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: all var(--transition);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.02);
+    position: relative;
+  }
+  .issue-entry:hover {
+    border-left-color: var(--red);
+    transform: translateX(4px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  .entry-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 14px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  .entry-tags {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .entry-issue-tag {
+    background: var(--red-pale);
+    color: var(--red);
+    padding: 3px 9px;
+    border: 0.5px solid var(--red-mid);
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  .entry-topic-tag {
+    color: var(--gold);
+    font-size: 12px;
+    font-weight: 700;
+  }
+
+  .entry-date {
+    color: var(--ink2);
+    font-weight: 700;
+    font-size: 12px;
+  }
+
+  .entry-title {
+    font-family: var(--serif);
+    font-size: clamp(22px, 3.5vw, 28px);
+    font-weight: 700;
+    line-height: 1.28;
+    color: var(--ink);
+    margin-bottom: 12px;
+    transition: color var(--transition);
+  }
+  .issue-entry:hover .entry-title {
+    color: var(--red);
+  }
+
+  .entry-deck {
+    font-family: var(--body);
+    font-size: 16px;
+    color: var(--ink);
+    line-height: 1.75;
+    margin-bottom: 20px;
+  }
+
+  .entry-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-top: 1px solid var(--border);
+    padding-top: 16px;
+  }
+
+  .entry-read-link {
+    color: var(--red);
+    font-weight: 700;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    transition: gap var(--transition);
+  }
+  .issue-entry:hover .entry-read-link {
+    gap: 10px;
+  }
+
+  .entry-read-time {
+    color: var(--ink2);
+    font-weight: 700;
+  }
+
+  /* EMPTY SEARCH STATE */
+  .search-empty-state {
+    display: none;
+    text-align: center;
+    padding: 52px 36px;
+    background: var(--floor);
+    border: 1px dashed var(--border);
+    margin: 18px 0;
+  }
+  .empty-glyph {
+    font-family: var(--serif);
+    font-size: 38px;
+    color: var(--gold);
+    margin-bottom: 10px;
+  }
+  .empty-title {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+  .empty-desc {
+    font-family: var(--body);
+    font-size: 16px;
+    color: var(--ink2);
+    max-width: 520px;
+    margin: 0 auto 20px;
+    line-height: 1.7;
+  }
+  .reset-search-btn {
+    background: var(--dark);
+    color: #F0E8DC;
+    border: none;
+    padding: 10px 22px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    cursor: pointer;
+    font-weight: 700;
+    transition: background var(--transition);
+  }
+  .reset-search-btn:hover {
+    background: var(--red);
+  }
+
+  /* ═════════════════════════════════════════════════════════════════════════
+     10. THE EDITORIAL CHARTER / STANDARDS
+     ═════════════════════════════════════════════════════════════════════════ */
+  .standards-section {
+    margin-bottom: 56px;
+    background: var(--floor);
+    border: 1px solid var(--border);
+    padding: 40px 44px;
+    position: relative;
+  }
+
+  .standards-header-block {
+    text-align: center;
+    max-width: 680px;
+    margin: 0 auto 36px;
+  }
+
+  .standards-eyebrow {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 2.5px;
+    color: var(--gold);
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .standards-title {
+    font-family: var(--serif);
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+  }
+
+  .standards-subtitle {
+    font-family: var(--body);
+    font-size: 16px;
+    font-style: italic;
+    color: var(--ink2);
+  }
+
+  .standards-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 22px;
+  }
+
+  .standard-card {
+    background: #FFFFFF;
+    border: 1px solid var(--border);
+    padding: 26px 28px;
+    position: relative;
+    transition: border-color var(--transition);
+  }
+  .standard-card:hover {
+    border-color: #C8B89A;
+  }
+
+  .standard-roman {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 1px;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+
+  .standard-card-title {
+    font-family: var(--serif);
+    font-size: 18.5px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 10px;
+    line-height: 1.35;
+  }
+
+  .standard-desc {
+    font-family: var(--body);
+    font-size: 15px;
+    color: var(--ink);
+    line-height: 1.7;
+  }
+
+  /* ═════════════════════════════════════════════════════════════════════════
+     11. NEWSLETTER INTELLIGENCE DISPATCH
+     ═════════════════════════════════════════════════════════════════════════ */
+  .subscribe-section {
+    background: var(--dark);
+    color: #F0E8DC;
+    padding: 48px 52px;
+    text-align: center;
+    position: relative;
+    border-top: 3px solid var(--gold);
+    box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.4);
+  }
+
+  .sub-eyebrow {
+    font-family: var(--mono);
+    font-size: 13px;
+    letter-spacing: 2.5px;
+    color: #E8C88A;
+    text-transform: uppercase;
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .sub-title {
+    font-family: var(--serif);
+    font-size: clamp(26px, 3.8vw, 34px);
+    font-weight: 700;
+    color: #F0E8DC;
+    margin-bottom: 12px;
+    letter-spacing: -0.3px;
+  }
+
+  .sub-desc {
+    font-family: var(--body);
+    font-size: 16.5px;
+    color: #E2D7C5;
+    max-width: 620px;
+    margin: 0 auto 28px;
+    line-height: 1.75;
+  }
+
+  .sub-form {
+    display: flex;
+    max-width: 540px;
+    margin: 0 auto;
+    gap: 10px;
+  }
+
+  .sub-input {
+    flex: 1;
+    background: #2A140A;
+    border: 1px solid #5A3820;
+    padding: 14px 20px;
+    font-family: var(--mono);
+    font-size: 13.5px;
+    color: #F0E8DC;
+    outline: none;
+    transition: border-color var(--transition), background var(--transition);
+  }
+  .sub-input:focus {
+    border-color: #C8A880;
+    background: #32190D;
+  }
+  .sub-input::placeholder {
+    color: #9A8A7A;
+  }
+
+  .sub-btn {
+    background: var(--red);
+    color: #FFF;
+    border: none;
+    padding: 14px 26px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: background var(--transition), transform var(--transition);
+    white-space: nowrap;
+  }
+  .sub-btn:hover {
+    background: var(--red-hover);
+  }
+
+  .sub-toast {
+    display: none;
+    margin-top: 18px;
+    font-family: var(--mono);
+    font-size: 13px;
+    color: #E8C88A;
+    letter-spacing: 0.5px;
+    padding: 12px 18px;
+    background: rgba(160, 120, 40, 0.18);
+    border: 1px solid rgba(212, 184, 122, 0.35);
+    max-width: 540px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .sub-trust-badges {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 18px;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: #C8B89A;
+    font-weight: 700;
+    margin-top: 22px;
+    flex-wrap: wrap;
+  }
+
+  /* ═════════════════════════════════════════════════════════════════════════
+     12. PUBLICATION COLOPHON & FOOTER
+     ═════════════════════════════════════════════════════════════════════════ */
+  .footer {
+    padding: 42px 56px;
+    border-top: 1px solid var(--border);
+    background: var(--dark);
+    color: #C8B89A;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 26px;
+  }
+
+  .footer-brand {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 700;
+    color: #F0E8DC;
+  }
+  .footer-brand span {
+    color: var(--red);
+  }
+
+  .footer-tagline {
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1.5px;
+    color: #C8B89A;
+    text-transform: uppercase;
+    margin-top: 4px;
+    font-weight: 700;
+  }
+
+  .footer-links {
+    display: flex;
+    gap: 20px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+    flex-wrap: wrap;
+  }
+
+  .footer-link {
+    color: #E2D7C5;
+    text-decoration: none;
+    transition: color var(--transition);
+  }
+  .footer-link:hover {
+    color: #FFF;
+  }
+
+  .footer-colophon {
+    font-family: var(--mono);
+    font-size: 12px;
+    color: #C8B89A;
+    letter-spacing: 0.8px;
+    text-align: right;
+    line-height: 1.8;
+    font-weight: 600;
+  }
+
+  .back-to-top-btn {
+    background: transparent;
+    border: 1px solid #5A3820;
+    color: #E2D7C5;
+    font-family: var(--mono);
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    font-weight: 700;
+    padding: 8px 16px;
+    cursor: pointer;
+    transition: all var(--transition);
+  }
+  .back-to-top-btn:hover {
+    border-color: #C8A880;
+    color: #FFF;
+    background: rgba(255, 255, 255, 0.05);
+  }
+
+  /* ═════════════════════════════════════════════════════════════════════════
+     13. RESPONSIVE DESIGN (BREAKPOINTS)
+     ═════════════════════════════════════════════════════════════════════════ */
+  @media (max-width: 960px) {
+    .featured-card {
+      grid-template-columns: 1fr;
+    }
+    .featured-main {
+      border-right: none;
+      border-bottom: 1px solid var(--border);
+    }
+    .featured-sidebar {
+      border-left: none;
+    }
+  }
+
+  @media (max-width: 768px) {
+    html {
+      font-size: 16px;
+    }
+    .journal-container {
+      margin: 0;
+      border: none;
+      box-shadow: none;
+    }
+    .masthead, .content-area, .footer, .subscribe-section, .standards-section {
+      padding-left: 20px;
+      padding-right: 20px;
+    }
+    .top-strip {
+      padding: 12px 18px;
+      flex-direction: column;
+      text-align: center;
+      gap: 10px;
+    }
+    .metrics-strip {
+      grid-template-columns: repeat(2, 1fr);
+    }
+    .metric-item:nth-child(2) {
+      border-right: none;
+    }
+    .metric-item:nth-child(1), .metric-item:nth-child(2) {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+    }
+    .standards-grid {
+      grid-template-columns: 1fr;
+    }
+    .featured-main {
+      padding: 30px 20px;
+    }
+    .featured-sidebar {
+      padding: 26px 20px;
+    }
+    .sub-form {
+      flex-direction: column;
+    }
+    .footer {
+      flex-direction: column;
+      text-align: center;
+    }
+    .footer-colophon {
+      text-align: center;
+    }
+  }
+
+  /* ═════════════════════════════════════════════════════════════════════════
+     14. PREFERS-REDUCED-MOTION
+     ═════════════════════════════════════════════════════════════════════════ */
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+      scroll-behavior: auto !important;
+    }
+  }
+</style>
+</head>
+<body>
+
+<a href="#mainContent" class="skip-to-content">Skip to Main Content</a>
+
+<!-- ═════════════════════════════════════════════════════════════════════════
+     STICKY TOP UTILITY & NAVIGATION STRIP
+     ═════════════════════════════════════════════════════════════════════════ -->
+<header class="top-strip-wrapper">
+  <div class="top-strip">
+    <div class="top-strip-left">
+      <span class="journal-vol">Vol. 1 · Issue #03</span>
+      <span class="strip-divider">·</span>
+      <span>August 2026</span>
+      <span class="strip-divider">·</span>
+      <span class="pulse-indicator"><span class="pulse-dot" aria-hidden="true"></span> Latest Issue Live</span>
+    </div>
+    <nav class="top-strip-right" aria-label="Quick Publication Navigation">
+      <a href="#issues-feed" class="top-nav-link">Archive</a>
+      <span class="strip-divider">·</span>
+      <a href="#standards" class="top-nav-link">Editorial Standards</a>
+      <span class="strip-divider">·</span>
+      <a href="#subscribe" class="top-nav-link">Subscribe</a>
+    </nav>
+  </div>
+  <div class="top-reading-progress" aria-hidden="true">
+    <div class="top-reading-progress-bar" id="readingProgressBar"></div>
+  </div>
+</header>
+
+<!-- ═════════════════════════════════════════════════════════════════════════
+     MAIN JOURNAL CONTAINER
+     ═════════════════════════════════════════════════════════════════════════ -->
+<div class="journal-container">
+
+  <!-- EDITORIAL MASTHEAD -->
+  <header class="masthead">
+    <div class="masthead-folio-top">
+      <span>Established 2026</span>
+      <span>Monthly Applied AI Intelligence Journal</span>
+      <span>Independent · Unsponsored</span>
+    </div>
+
+    <a href="index.html" class="logo-wrapper" aria-label="The AI Edge — Return to Homepage">
+      <img src="Untitled/Logo_transparent.png" alt="The AI Edge — Where AI Strategy Meets the Future" class="brand-logo-img">
+    </a>
+
+    <div class="masthead-rule-container" aria-hidden="true">
+      <div class="masthead-rule-line"></div>
+      <div class="masthead-rule-glyph">◆ ◆ ◆</div>
+      <div class="masthead-rule-line right"></div>
+    </div>
+
+    <div class="masthead-tagline">Where AI Strategy Meets the Future</div>
+    
+    <p class="masthead-desc">An independent, evidence-backed journal analyzing autonomous agents, specialized SLMs, enterprise deployment economics, and regulatory transformations reshaping knowledge work.</p>
+
+    <div class="masthead-metadata-bar">
+      <span>Volume 01</span>
+      <span>·</span>
+      <span>Monthly Circulation</span>
+      <span>·</span>
+      <span class="accent">100% Named Sourced Evidence</span>
+      <span>·</span>
+      <span>Executive &amp; Technical Analysis</span>
+    </div>
+  </header>
+
+  <!-- PUBLICATION CREDIBILITY STRIP -->
+  <section class="metrics-strip" aria-label="Publication Statistics & Credibility">
+    <div class="metric-item">
+      <div class="metric-val">3</div>
+      <div class="metric-label">Published Issues</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-val">30+</div>
+      <div class="metric-label">Verified Citations</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-val">90%</div>
+      <div class="metric-label">Max Process Speedup</div>
+    </div>
+    <div class="metric-item">
+      <div class="metric-val">0%</div>
+      <div class="metric-label">Sponsored Bias</div>
+    </div>
+  </section>
+
+  <!-- MAIN EDITORIAL CONTENT -->
+  <main id="mainContent" class="content-area">
+
+    <!-- ═════════════════════════════════════════════════════════════════════
+         FEATURED COVER INVESTIGATION (ISSUE #03)
+         ═════════════════════════════════════════════════════════════════════ -->
+    <section class="featured-section" aria-labelledby="featuredHeading">
+      <div class="section-label-bar">
+        <div class="section-label" id="featuredHeading">Cover Investigation · Lead Story</div>
+        <div class="section-date-meta">August 2026 · Issue #03</div>
+      </div>
+
+      <a href="the_ai_edge_issue03.html" class="featured-card" aria-label="Read full Issue #03: The Last Profession to Fall: AI in Legal & Compliance">
+        <div class="featured-main">
+          <div>
+            <div class="featured-badge-row">
+              <span class="badge-primary">Latest Release</span>
+              <span class="badge-secondary">Issue #03</span>
+              <span class="badge-gold">Legal &amp; Compliance</span>
+            </div>
+
+            <h2 class="featured-title">The Last Profession to Fall: AI in Legal &amp; Compliance</h2>
+            <div class="featured-subtitle">The Silent Corporate Revolution</div>
+
+            <p class="featured-deck">AI reached healthcare before law. Manufacturing before legal. Finance before compliance. Not because the legal profession was uniquely protected — because its moat looked unassailable. It no longer does. What happens when clients run AI against £520/hour invoices?</p>
+          </div>
+
+          <div class="featured-footer">
+            <span class="cta-btn">Read Full Issue #03 ➔</span>
+            <div class="featured-meta-info">
+              <span>⏱ 11 min read</span>
+              <span>·</span>
+              <span>~2,600 words</span>
+              <span>·</span>
+              <span>10 Sourced References</span>
+            </div>
+          </div>
+        </div>
+
+        <aside class="featured-sidebar" aria-label="Investigation Takeaways">
+          <div>
+            <div class="sidebar-header">
+              <span>◆ Key Investigation Insights</span>
+            </div>
+            <ul class="sidebar-insights">
+              <li>
+                <strong>Thomson Reuters $650M Move</strong>
+                Why Casetext became a defensive necessity for legal information infrastructure.
+              </li>
+              <li>
+                <strong>The $5,000 Citation Warning</strong>
+                The real structural distinction between probabilistic text generation and indexed legal retrieval.
+              </li>
+              <li>
+                <strong>ABA Model Rule 1.1 Competence</strong>
+                Technological literacy is now a legal obligation, not an optional tool.
+              </li>
+              <li>
+                <strong>ALSP 20%+ Growth Rate</strong>
+                Alternative providers capturing Fortune 500 workflows from traditional law firms.
+              </li>
+            </ul>
+          </div>
+
+          <div class="sidebar-pullquote">
+            “The billable hour is fundamentally incompatible with 100x efficiency gains. The shift is now structural.”
+            <cite>— The AI Edge Editorial Analysis</cite>
+          </div>
+        </aside>
+      </a>
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════════════════════
+         PUBLICATION ARCHIVE (ISSUES #01, #02, #03)
+         ═════════════════════════════════════════════════════════════════════ -->
+    <section id="issues-feed" class="feed-section" aria-labelledby="archiveHeading">
+      <div class="section-label-bar">
+        <div class="section-label" id="archiveHeading">Publication Archive · All Issues</div>
+        <div class="section-date-meta">Chronological Intelligence Index</div>
+      </div>
+
+      <!-- SEARCH & FILTER TAXONOMY -->
+      <div class="feed-controls-box">
+        <div class="search-wrapper">
+          <span class="search-icon" aria-hidden="true">🔍</span>
+          <input type="text" 
+                 id="issueSearch" 
+                 class="search-input" 
+                 placeholder="Search issues by topic, keyword, or technology (e.g. SLMs, Harvey, Agents, EU AI Act, Apple Intelligence)..." 
+                 aria-label="Search publication archive by keyword or technology">
+          <button id="searchClearBtn" class="search-clear-btn" aria-label="Clear search query">✕ Clear</button>
+        </div>
+
+        <div class="filter-taxonomy">
+          <div class="filter-pills" role="tablist" aria-label="Filter archive by topic category">
+            <button class="filter-btn active" role="tab" aria-selected="true" data-filter="all">All Issues (3)</button>
+            <button class="filter-btn" role="tab" aria-selected="false" data-filter="legal">Legal &amp; Compliance</button>
+            <button class="filter-btn" role="tab" aria-selected="false" data-filter="slm">Small Models &amp; Edge</button>
+            <button class="filter-btn" role="tab" aria-selected="false" data-filter="agents">Autonomous Agents</button>
+          </div>
+
+          <div class="feed-status-line" aria-live="polite" id="resultsCount">
+            Showing 3 Published Issues
+          </div>
+        </div>
+      </div>
+
+      <!-- EMPTY STATE WHEN ZERO SEARCH MATCHES -->
+      <div id="searchEmptyState" class="search-empty-state" role="status">
+        <div class="empty-glyph">§</div>
+        <h3 class="empty-title">No Intelligence Reports Found</h3>
+        <p class="empty-desc">No published issues match your query "<span id="emptyQueryTerm" style="color:var(--red); font-weight:700;"></span>". Try searching for topics like <em>SLMs, Harvey, Agents, EU AI Act, Apple Intelligence</em>, or reset your filters.</p>
+        <button class="reset-search-btn" id="resetSearchBtn">Reset Search &amp; Filters</button>
+      </div>
+
+      <!-- ISSUES GRID -->
+      <div class="issues-grid" id="issuesGrid">
+
+        <!-- ISSUE #03 CARD -->
+        <a href="the_ai_edge_issue03.html" class="issue-entry" data-category="legal" data-keywords="legal compliance casetext harvey law contracts ironclad luminance aba regulation billable hour alsp citation judicial">
+          <div class="entry-top">
+            <div class="entry-tags">
+              <span class="entry-issue-tag">Issue #03</span>
+              <span class="entry-topic-tag">Legal &amp; Compliance</span>
+            </div>
+            <time class="entry-date" datetime="2026-08">August 2026</time>
+          </div>
+          <h3 class="entry-title">The Last Profession to Fall: AI in Legal &amp; Compliance</h3>
+          <p class="entry-deck">The legal profession built its authority on knowing things first. AI can now find most things faster. Explore how corporate legal departments, ALSPs, and strict regulatory standards like ABA Rule 1.1 are dismantling the billable hour.</p>
+          <div class="entry-footer">
+            <span class="entry-read-link">Read Full Issue ➔</span>
+            <span class="entry-read-time">⏱ 11 min read · ~2,600 words</span>
+          </div>
+        </a>
+
+        <!-- ISSUE #02 CARD -->
+        <a href="the_ai_edge_issue02.html" class="issue-entry" data-category="slm" data-keywords="small language models slm phi-3 mistral apple intelligence eu ai act local inference edge privacy latency cost quantization">
+          <div class="entry-top">
+            <div class="entry-tags">
+              <span class="entry-issue-tag">Issue #02</span>
+              <span class="entry-topic-tag">SLMs &amp; Edge AI</span>
+            </div>
+            <time class="entry-date" datetime="2026-07">July 2026</time>
+          </div>
+          <h3 class="entry-title">Small But Lethal: Why the AI Race Is Being Won by Smaller Models</h3>
+          <p class="entry-deck">The assumption that bigger is always better just broke. Specialized, domain-trained Small Language Models (SLMs) like Microsoft Phi-3 and Apple Intelligence are outperforming frontier LLMs on latency, operational cost, and data sovereignty.</p>
+          <div class="entry-footer">
+            <span class="entry-read-link">Read Full Issue ➔</span>
+            <span class="entry-read-time">⏱ 9 min read · ~2,400 words</span>
+          </div>
+        </a>
+
+        <!-- ISSUE #01 CARD -->
+        <a href="the_ai_edge_issue01.html" class="issue-entry" data-category="agents" data-keywords="autonomous agents multi-agent orchestration salesforce servicenow sap workflows autogen crewai enterprise automation prompting">
+          <div class="entry-top">
+            <div class="entry-tags">
+              <span class="entry-issue-tag">Issue #01</span>
+              <span class="entry-topic-tag">Autonomous Agents</span>
+            </div>
+            <time class="entry-date" datetime="2026-06">June 2026</time>
+          </div>
+          <h3 class="entry-title">AI Agents: The End of Traditional Workflows</h3>
+          <p class="entry-deck">Autonomous AI agents are replacing task-by-task prompting. Explore the multi-agent orchestration architecture Salesforce, ServiceNow, and SAP are embedding, and why waiting to adopt them is an expensive strategic error.</p>
+          <div class="entry-footer">
+            <span class="entry-read-link">Read Full Issue ➔</span>
+            <span class="entry-read-time">⏱ 8 min read · ~2,100 words</span>
+          </div>
+        </a>
+
+      </div>
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════════════════════
+         EDITORIAL CHARTER & STANDARDS
+         ═════════════════════════════════════════════════════════════════════ -->
+    <section id="standards" class="standards-section" aria-labelledby="standardsHeading">
+      <div class="standards-header-block">
+        <div class="standards-eyebrow">Publication Charter</div>
+        <h3 class="standards-title" id="standardsHeading">The AI Edge Editorial Standard</h3>
+        <p class="standards-subtitle">What Makes Our Technical &amp; Strategic Analysis Different</p>
+      </div>
+
+      <div class="standards-grid">
+        <article class="standard-card">
+          <div class="standard-roman">Principle I</div>
+          <h4 class="standard-card-title">100% Named Sourced Evidence</h4>
+          <p class="standard-desc">We cite official regulatory statutes (EU AI Act, ABA Model Rules), corporate financial filings, and published judicial court decisions. Zero anonymous hype.</p>
+        </article>
+
+        <article class="standard-card">
+          <div class="standard-roman">Principle II</div>
+          <h4 class="standard-card-title">Zero Sponsored Content</h4>
+          <p class="standard-desc">Completely independent editorial evaluation. We test tools and evaluate architectures strictly from the perspective of enterprise buyers, engineers, and practitioners.</p>
+        </article>
+
+        <article class="standard-card">
+          <div class="standard-roman">Principle III</div>
+          <h4 class="standard-card-title">Executive &amp; Technical Depth</h4>
+          <p class="standard-desc">Bridging the critical gap between board-level capital allocation strategy and real-world production engineering deployment constraints.</p>
+        </article>
+
+        <article class="standard-card">
+          <div class="standard-roman">Principle IV</div>
+          <h4 class="standard-card-title">Actionable Frameworks</h4>
+          <p class="standard-desc">Every issue concludes with structured, high-ROI action matrices and implementation checklists ready for immediate application.</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- ═════════════════════════════════════════════════════════════════════
+         NEWSLETTER INTELLIGENCE DISPATCH
+         ═════════════════════════════════════════════════════════════════════ -->
+    <section id="subscribe" class="subscribe-section" aria-labelledby="subscribeHeading">
+      <div class="sub-eyebrow">Executive Intelligence Dispatch</div>
+      <h3 class="sub-title" id="subscribeHeading">Stay Ahead of the Strategic Shift</h3>
+      <p class="sub-desc">Join enterprise technology leaders, general counsels, and AI systems architects who rely on The AI Edge for monthly, evidence-based intelligence.</p>
+
+      <form id="subscribeForm" class="sub-form" onsubmit="event.preventDefault(); handleSubscribe();" novalidate>
+        <input type="email" 
+               id="subEmail" 
+               class="sub-input" 
+               placeholder="Enter your professional email address..." 
+               required 
+               aria-label="Professional business email address" 
+               aria-describedby="subEmailHelp">
+        <button type="submit" id="subBtn" class="sub-btn">Subscribe Free ➔</button>
+      </form>
+
+      <div id="subToast" class="sub-toast" role="status" aria-live="polite"></div>
+
+      <div class="sub-trust-badges" id="subEmailHelp">
+        <span>Monthly Dispatches</span>
+        <span>·</span>
+        <span>Zero Commercial Bias</span>
+        <span>·</span>
+        <span>Direct to Inbox</span>
+        <span>·</span>
+        <span>Unsubscribe Anytime</span>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ═════════════════════════════════════════════════════════════════════
+       EDITORIAL COLOPHON & FOOTER
+       ═════════════════════════════════════════════════════════════════════ -->
+  <footer class="footer">
+    <div>
+      <div class="footer-brand">The <span>AI</span> Edge</div>
+      <div class="footer-tagline">Where AI Strategy Meets the Future</div>
+    </div>
+
+    <nav class="footer-links" aria-label="Footer Issue Navigation">
+      <a href="the_ai_edge_issue01.html" class="footer-link">Issue #01 (Agents)</a>
+      <a href="the_ai_edge_issue02.html" class="footer-link">Issue #02 (SLMs)</a>
+      <a href="the_ai_edge_issue03.html" class="footer-link">Issue #03 (Legal)</a>
+    </nav>
+
+    <div class="footer-colophon">
+      <div>Established 2026 · Monthly Applied AI Journal</div>
+      <div>Independent Technical Analysis · All Rights Reserved</div>
+    </div>
+
+    <button type="button" class="back-to-top-btn" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" aria-label="Scroll back to top of page">
+      ↑ Top
+    </button>
+  </footer>
+
+</div>
+
+<!-- ═════════════════════════════════════════════════════════════════════════
+     INTERACTIVE SCRIPTS (MODULAR, HIGH PERFORMANCE & ACCESSIBLE)
+     ═════════════════════════════════════════════════════════════════════════ -->
+<script>
+  (function() {
+    'use strict';
+
+    // Elements
+    const searchInput = document.getElementById('issueSearch');
+    const searchClearBtn = document.getElementById('searchClearBtn');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+    const issueCards = document.querySelectorAll('#issuesGrid .issue-entry');
+    const resultsCount = document.getElementById('resultsCount');
+    const searchEmptyState = document.getElementById('searchEmptyState');
+    const emptyQueryTerm = document.getElementById('emptyQueryTerm');
+    const resetSearchBtn = document.getElementById('resetSearchBtn');
+    const readingProgressBar = document.getElementById('readingProgressBar');
+    const subscribeForm = document.getElementById('subscribeForm');
+    const subEmail = document.getElementById('subEmail');
+    const subToast = document.getElementById('subToast');
+    const subBtn = document.getElementById('subBtn');
+
+    let currentCategory = 'all';
+
+    // Reading Scroll Progress Indicator
+    window.addEventListener('scroll', function() {
+      const winScroll = document.documentElement.scrollTop || document.body.scrollTop;
+      const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+      const scrolled = height > 0 ? (winScroll / height) * 100 : 0;
+      if (readingProgressBar) {
+        readingProgressBar.style.width = scrolled + '%';
+      }
+    }, { passive: true });
+
+    // Filter & Search Logic
+    function filterIssues() {
+      const query = searchInput.value.toLowerCase().trim();
+      let visibleCount = 0;
+
+      // Toggle Clear Button
+      if (searchClearBtn) {
+        searchClearBtn.style.display = query ? 'block' : 'none';
+      }
+
+      issueCards.forEach(card => {
+        const category = card.getAttribute('data-category');
+        const keywords = card.getAttribute('data-keywords') || '';
+        const text = card.innerText.toLowerCase();
+
+        const matchesCategory = (currentCategory === 'all') || (category === currentCategory);
+        const matchesSearch = !query || text.includes(query) || keywords.toLowerCase().includes(query);
+
+        if (matchesCategory && matchesSearch) {
+          card.style.display = 'block';
+          visibleCount++;
+        } else {
+          card.style.display = 'none';
+        }
+      });
+
+      // Update Results Counter
+      if (resultsCount) {
+        if (visibleCount === 0) {
+          resultsCount.textContent = '0 Issues Found';
+        } else {
+          resultsCount.textContent = `Showing ${visibleCount} Published Issue${visibleCount === 1 ? '' : 's'}`;
+        }
+      }
+
+      // Empty State Handling
+      if (searchEmptyState) {
+        if (visibleCount === 0) {
+          searchEmptyState.style.display = 'block';
+          if (emptyQueryTerm) {
+            emptyQueryTerm.textContent = query || (currentCategory !== 'all' ? `Category: ${currentCategory}` : '');
+          }
+        } else {
+          searchEmptyState.style.display = 'none';
+        }
+      }
+    }
+
+    // Event Listeners for Search & Filter
+    if (searchInput) {
+      searchInput.addEventListener('input', filterIssues);
+    }
+
+    if (searchClearBtn) {
+      searchClearBtn.addEventListener('click', function() {
+        searchInput.value = '';
+        searchInput.focus();
+        filterIssues();
+      });
+    }
+
+    filterBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        filterBtns.forEach(b => {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('active');
+        btn.setAttribute('aria-selected', 'true');
+        currentCategory = btn.getAttribute('data-filter');
+        filterIssues();
+      });
+    });
+
+    function resetFilters() {
+      if (searchInput) searchInput.value = '';
+      currentCategory = 'all';
+      filterBtns.forEach(b => {
+        if (b.getAttribute('data-filter') === 'all') {
+          b.classList.add('active');
+          b.setAttribute('aria-selected', 'true');
+        } else {
+          b.classList.remove('active');
+          b.setAttribute('aria-selected', 'false');
+        }
+      });
+      filterIssues();
+    }
+
+    if (resetSearchBtn) {
+      resetSearchBtn.addEventListener('click', resetFilters);
+    }
+
+    // Expose reset to global scope for any inline triggers
+    window.resetFilters = resetFilters;
+
+    // Newsletter Handler
+    window.handleSubscribe = function() {
+      if (!subEmail || !subToast) return;
+      const email = subEmail.value.trim();
+      
+      if (!email || !subEmail.checkValidity()) {
+        subToast.style.display = 'block';
+        subToast.style.color = '#E88A8A';
+        subToast.textContent = 'Please enter a valid professional email address.';
+        subEmail.focus();
+        return;
+      }
+
+      // Successful simulated subscription UI
+      subBtn.disabled = true;
+      subBtn.textContent = 'Subscribing...';
+      
+      setTimeout(function() {
+        subBtn.disabled = false;
+        subBtn.textContent = 'Subscribed ✓';
+        subToast.style.display = 'block';
+        subToast.style.color = '#E8C88A';
+        subToast.innerHTML = `✓ <strong>Thank you.</strong> Your subscription preference for <em>${email}</em> has been recorded. You will receive all forthcoming intelligence dispatches directly.`;
+        subEmail.value = '';
+      }, 400);
+    };
+
+  })();
+</script>
+</body>
+</html>

@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The AI Edge — Issue #01</title>
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+<link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+<link rel="shortcut icon" href="favicon.ico">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;0,700;0,900;1,400;1,600&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Space+Mono:ital,wght@0,400;0,700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:       #F8F5F1;
+    --ink:      #1A1714;
+    --ink2:     #3D3731;
+    --ink3:     #5C554E;
+    --red:      #B83200;
+    --red-hover:#942800;
+    --red-pale: #FBF0EB;
+    --red-mid:  #E8D4CB;
+    --gold:     #A07828;
+    --gold-pale:#FBF4E8;
+    --border:   #DDD8D2;
+    --dark:     #1E0E06;
+    --serif:    'Playfair Display', Georgia, serif;
+    --body:     'Lora', Georgia, serif;
+    --mono:     'Space Mono', 'Courier New', monospace;
+  }
+
+  html { font-size: 18px; background: #EDEAE5; scroll-behavior: smooth; }
+  body {
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--body);
+    line-height: 1.8;
+    min-height: 100vh;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* ── LAYOUT ── */
+  .page { max-width: 760px; margin: 0 auto; background: var(--bg); box-shadow: 0 0 60px rgba(0, 0, 0, 0.08); }
+
+  /* ── TOP STRIP ── */
+  .top-strip {
+    background: var(--dark);
+    color: #E2D7C5;
+    text-align: center;
+    padding: 12px 32px;
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .top-strip a { color: #E8C88A; text-decoration: none; font-weight: 700; }
+  .top-strip a:hover { color: #FFF; text-decoration: underline; }
+
+  /* ── MASTHEAD ── */
+  .masthead {
+    padding: 40px 48px 0;
+    border-bottom: 1px solid var(--border);
+    text-align: center;
+    position: relative;
+  }
+  .masthead-rule {
+    height: 3px;
+    background: linear-gradient(90deg, transparent 0%, var(--red) 20%, var(--red) 80%, transparent 100%);
+    margin-bottom: 28px;
+  }
+  .masthead-name {
+    font-family: var(--serif);
+    font-size: clamp(42px, 8vw, 64px);
+    font-weight: 900;
+    letter-spacing: -1px;
+    color: var(--ink);
+    line-height: 1;
+  }
+  .masthead-name a { color: var(--ink); text-decoration: none; }
+  .masthead-name span { color: var(--red); }
+  .masthead-tagline {
+    font-family: var(--mono);
+    font-size: 13.5px;
+    letter-spacing: 3px;
+    color: var(--ink);
+    text-transform: uppercase;
+    margin-top: 10px;
+    margin-bottom: 20px;
+    font-weight: 700;
+  }
+  .masthead-meta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 20px;
+    padding: 14px 0;
+    border-top: 0.5px solid var(--border);
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink2);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    flex-wrap: wrap;
+  }
+  .masthead-meta .dot { color: var(--red); }
+
+  /* ── ARTICLE HEADER ── */
+  .article-header {
+    padding: 48px 48px 0;
+  }
+  .article-label {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    text-transform: uppercase;
+    color: var(--red);
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+  .article-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--red-mid);
+  }
+  .article-title {
+    font-family: var(--serif);
+    font-size: clamp(28px, 5vw, 42px);
+    font-weight: 700;
+    line-height: 1.18;
+    color: var(--ink);
+    margin-bottom: 20px;
+    letter-spacing: -0.5px;
+  }
+  .article-deck {
+    font-family: var(--body);
+    font-size: 17.5px;
+    font-style: italic;
+    color: var(--ink);
+    line-height: 1.75;
+    border-left: 3px solid var(--red);
+    padding-left: 18px;
+    margin-bottom: 24px;
+  }
+  .article-byline {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 16px 0;
+    border-top: 0.5px solid var(--border);
+    border-bottom: 0.5px solid var(--border);
+    font-family: var(--mono);
+    font-size: 12.5px;
+    color: var(--ink2);
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    flex-wrap: wrap;
+  }
+  .byline-dot { color: var(--border); }
+  .read-time { color: var(--gold); }
+
+  /* ── ARTICLE BODY ── */
+  .article-body {
+    padding: 40px 48px 48px;
+  }
+  .article-body p {
+    margin-bottom: 1.25em;
+    font-size: 17.5px;
+    color: var(--ink);
+    line-height: 1.85;
+  }
+  .article-body p:first-child::first-letter {
+    font-family: var(--serif);
+    font-size: 4.5em;
+    font-weight: 900;
+    float: left;
+    line-height: 0.75;
+    margin-right: 8px;
+    margin-top: 6px;
+    color: var(--red);
+  }
+
+  /* ── SECTION HEADERS ── */
+  .section-header {
+    display: flex;
+    align-items: baseline;
+    gap: 12px;
+    margin: 44px 0 16px;
+  }
+  .section-num {
+    font-family: var(--mono);
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: 1px;
+    flex-shrink: 0;
+    padding-top: 2px;
+  }
+  .section-title {
+    font-family: var(--serif);
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--ink);
+    line-height: 1.3;
+    flex: 1;
+  }
+  .section-rule {
+    flex-shrink: 0;
+    width: 30px;
+    height: 1px;
+    background: var(--red);
+    margin-bottom: 4px;
+    margin-left: 4px;
+    align-self: center;
+  }
+
+  /* ── PULL QUOTE ── */
+  .pull-quote {
+    margin: 34px -8px;
+    padding: 24px 30px;
+    border-left: 4px solid var(--red);
+    background: var(--red-pale);
+  }
+  .pull-quote p {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-style: italic;
+    font-weight: 600;
+    color: var(--dark);
+    line-height: 1.5;
+    margin: 0 !important;
+  }
+  .pull-quote p::first-letter { all: unset; }
+  .pull-quote cite {
+    display: block;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--red);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-top: 12px;
+  }
+
+  /* ── DATA CALLOUT ── */
+  .data-callout {
+    margin: 30px 0;
+    background: var(--gold-pale);
+    border: 1px solid #D4B87A;
+    border-left: 4px solid var(--gold);
+    padding: 22px 26px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+    gap: 22px;
+  }
+  .data-stat {
+    text-align: center;
+  }
+  .data-number {
+    font-family: var(--serif);
+    font-size: 36px;
+    font-weight: 700;
+    color: var(--gold);
+    line-height: 1;
+    margin-bottom: 6px;
+  }
+  .data-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink2);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    line-height: 1.5;
+  }
+
+  /* ── AGENT BOX ── */
+  .agent-box {
+    margin: 26px 0;
+    border: 1px solid var(--border);
+    background: #fff;
+  }
+  .agent-box-header {
+    background: var(--dark);
+    color: #F0E8DC;
+    padding: 12px 20px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+  .agent-box-body {
+    padding: 18px 20px;
+  }
+  .agent-row {
+    display: flex;
+    gap: 16px;
+    padding: 12px 0;
+    border-bottom: 0.5px solid var(--border);
+    align-items: flex-start;
+  }
+  .agent-row:last-child { border-bottom: none; }
+  .agent-tag {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    background: var(--red-pale);
+    color: var(--red);
+    border: 0.5px solid var(--red-mid);
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    white-space: nowrap;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+  .agent-desc {
+    font-family: var(--body);
+    font-size: 15.5px;
+    color: var(--ink);
+    line-height: 1.65;
+  }
+
+  /* ── COST TABLE ── */
+  .cost-table {
+    margin: 26px 0;
+    border: 1px solid var(--border);
+    overflow: hidden;
+  }
+  .cost-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  }
+  .cost-header {
+    background: var(--ink);
+    color: #F0E8DC;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 1.2px;
+    text-transform: uppercase;
+    padding: 12px 18px;
+  }
+  .cost-cell {
+    padding: 14px 18px;
+    border-bottom: 0.5px solid var(--border);
+    font-size: 15.5px;
+    line-height: 1.6;
+    color: var(--ink);
+  }
+  .cost-cell:nth-child(even) {
+    border-left: 0.5px solid var(--border);
+    background: #FAF7F2;
+  }
+  .cost-cell strong { font-family: var(--mono); font-size: 14px; }
+  .cost-row:last-child .cost-cell { border-bottom: none; }
+  .cost-row .cost-cell.highlight { color: var(--red); font-weight: 600; }
+
+  /* ── INDUSTRY SECTION ── */
+  .industry {
+    margin: 30px 0;
+    padding: 24px 26px;
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--red);
+    background: #fff;
+  }
+  .industry-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+  }
+  .industry-num {
+    font-family: var(--mono);
+    font-size: 13px;
+    color: var(--red);
+    font-weight: 700;
+  }
+  .industry-name {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+  }
+  .industry p {
+    font-size: 16px !important;
+    margin-bottom: 0.9em !important;
+    color: var(--ink) !important;
+    line-height: 1.75 !important;
+  }
+  .industry p::first-letter { all: unset; }
+  .industry p:last-child { margin-bottom: 0 !important; }
+
+  /* ── TAKEAWAYS BOX ── */
+  .takeaways {
+    margin: 42px 0;
+    border: 1px solid var(--red-mid);
+    background: var(--red-pale);
+  }
+  .takeaways-header {
+    background: var(--red);
+    color: #fff;
+    padding: 13px 24px;
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .takeaways-body { padding: 22px 24px; }
+  .takeaway-item {
+    display: flex;
+    gap: 16px;
+    margin-bottom: 18px;
+    align-items: flex-start;
+  }
+  .takeaway-item:last-child { margin-bottom: 0; }
+  .takeaway-num {
+    font-family: var(--serif);
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--red);
+    line-height: 1;
+    flex-shrink: 0;
+  }
+  .takeaway-content strong {
+    font-family: var(--serif);
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--dark);
+    display: block;
+    margin-bottom: 4px;
+  }
+  .takeaway-content span {
+    font-size: 15.5px;
+    color: var(--ink2);
+    line-height: 1.65;
+  }
+
+  /* ── PREDICTION BOX ── */
+  .prediction {
+    margin: 36px 0;
+    background: var(--dark);
+    padding: 32px 30px;
+    position: relative;
+    overflow: hidden;
+  }
+  .prediction::before {
+    content: '❝';
+    position: absolute;
+    top: -10px;
+    right: 20px;
+    font-size: 100px;
+    color: rgba(184, 50, 0, 0.2);
+    font-family: var(--serif);
+    line-height: 1;
+  }
+  .prediction-label {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-weight: 700;
+    letter-spacing: 2.5px;
+    color: var(--red);
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+  .prediction p {
+    font-family: var(--serif);
+    font-size: 21px;
+    font-style: italic;
+    font-weight: 600;
+    color: #F0E8DC;
+    line-height: 1.55;
+    margin: 0 !important;
+  }
+  .prediction p::first-letter { all: unset; }
+
+  /* ── ETHICS NOTE ── */
+  .ethics {
+    margin: 34px 0;
+    padding: 22px 24px;
+    border: 1px dashed var(--border);
+    background: var(--floor);
+  }
+  .ethics-label {
+    font-family: var(--mono);
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--ink2);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .ethics p {
+    font-size: 16px !important;
+    color: var(--ink) !important;
+    line-height: 1.75 !important;
+    margin: 0 !important;
+  }
+  .ethics p::first-letter { all: unset; }
+
+  /* ── NEXT ISSUE TEASER ── */
+  .next-issue {
+    margin: 44px 0 0;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--gold);
+    padding: 26px 28px;
+  }
+  .next-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--gold);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .next-title {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 8px;
+  }
+  .next-desc {
+    font-size: 15.5px;
+    color: var(--ink2);
+    line-height: 1.7;
+    margin: 0 !important;
+  }
+  .next-desc::first-letter { all: unset; }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin: 0;
+    padding: 30px 48px;
+    border-top: 1px solid var(--border);
+    background: var(--dark);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+  .footer-brand {
+    font-family: var(--serif);
+    font-size: 20px;
+    font-weight: 700;
+    color: #F0E8DC;
+  }
+  .footer-brand span { color: var(--red); }
+  .footer-info {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 600;
+    color: #C8B89A;
+    letter-spacing: 0.8px;
+    text-align: right;
+    line-height: 1.8;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin: 32px 0;
+  }
+  .divider-line { flex: 1; height: 0.5px; background: var(--border); }
+  .divider-ornament { font-family: var(--serif); font-size: 18px; color: var(--red); opacity: 0.7; line-height: 1; }
+
+  /* ── INTRO HOOK ── */
+  .intro-hook {
+    font-family: var(--serif);
+    font-size: clamp(21px, 4vw, 28px);
+    font-style: italic;
+    font-weight: 600;
+    color: var(--red);
+    text-align: center;
+    line-height: 1.45;
+    margin: 36px 0 26px;
+    padding: 0 10px;
+  }
+
+  /* ── COMPARISON ARROW ── */
+  .comparison {
+    margin: 24px 0;
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 0;
+    border: 1px solid var(--border);
+  }
+  .comp-side {
+    padding: 18px 20px;
+  }
+  .comp-side:last-child { background: #fff; }
+  .comp-label {
+    font-family: var(--mono);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    color: var(--ink2);
+    margin-bottom: 8px;
+  }
+  .comp-value {
+    font-family: var(--body);
+    font-size: 15.5px;
+    color: var(--ink);
+    line-height: 1.6;
+  }
+  .comp-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 12px;
+    border-left: 0.5px solid var(--border);
+    border-right: 0.5px solid var(--border);
+    background: var(--red-pale);
+    color: var(--red);
+    font-size: 22px;
+  }
+
+  @media (max-width: 600px) {
+    .masthead, .article-header, .article-body { padding-left: 20px; padding-right: 20px; }
+    .footer { padding: 22px 20px; flex-direction: column; text-align: center; }
+    .footer-info { text-align: center; }
+    .pull-quote { margin: 24px 0; }
+    .masthead-meta { gap: 10px; flex-wrap: wrap; justify-content: center; }
+    .top-strip { flex-direction: column; text-align: center; }
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- TOP STRIP -->
+  <div class="top-strip">
+    <span><a href="index.html">← Back to Home</a></span>
+    <span>Monthly · AI Technology · Est. 2026</span>
+    <span>Issue No. 01</span>
+  </div>
+
+  <!-- MASTHEAD -->
+  <div class="masthead">
+    <div class="masthead-rule"></div>
+    <div class="masthead-name">The <span>AI</span> Edge</div>
+    <div class="masthead-tagline">Where AI Strategy Meets the Future</div>
+    <div class="masthead-meta">
+      <span>Issue No. 01</span>
+      <span class="dot">◆</span>
+      <span>June 2026</span>
+      <span class="dot">◆</span>
+      <span>AI Technology</span>
+      <span class="dot">◆</span>
+      <span>Monthly</span>
+    </div>
+  </div>
+
+
+
+  <!-- ARTICLE HEADER -->
+  <div class="article-header">
+    <div class="article-label">Feature Article — Issue 01</div>
+    <h1 class="article-title">AI Agents: The End of Traditional Workflows</h1>
+    <p class="article-deck">Autonomous AI agents are replacing task-by-task prompting. Companies adopting agents now will have an 18-month head start — and nobody is covering the workflow cost yet.</p>
+    <div class="article-byline">
+      <span>The AI Edge Editorial</span>
+      <span class="byline-dot">·</span>
+      <span>June 2026</span>
+      <span class="byline-dot">·</span>
+      <span class="read-time">⏱ 8 min read</span>
+      <span class="byline-dot">·</span>
+      <span>~1,700 words</span>
+    </div>
+  </div>
+
+  <!-- ARTICLE BODY -->
+  <div class="article-body">
+
+    <div class="intro-hook">"What if your AI doesn't wait for instructions?"</div>
+
+    <p>Right now, most professionals use AI the way we used search engines in 2005 — ask a question, get an answer, move on. That model is already obsolete. Most people just don't know it yet.</p>
+
+    <p>A new category of AI has arrived that doesn't answer questions. It <em>achieves goals</em>. It plans its own steps, selects its own tools, checks its own work, and reports back only when the job is done.</p>
+
+    <p>This is the AI agent era. And it doesn't just change how we work — it redefines what "work" means in the first place. In this first issue of <em>The AI Edge</em>, we break down exactly what is happening, why the next 18 months are critical, and why the companies moving <em>right now</em> will be structurally difficult to catch.</p>
+
+    <!-- SECTION 1 -->
+    <div class="section-header">
+      <span class="section-num">01 —</span>
+      <h2 class="section-title">The Shift Nobody Is Writing About</h2>
+    </div>
+
+    <p>Traditional AI tools — ChatGPT, Copilot, Gemini — are fundamentally reactive. You prompt, they respond. You prompt again, they respond again. The human steers every single step.</p>
+
+    <p>AI agents work differently at a fundamental level. An agent receives a <strong>goal</strong>, not a task. It then breaks that goal into sub-tasks on its own, selects the tools it needs (web search, databases, code execution, email, APIs), executes those steps in sequence or parallel, self-corrects when something breaks, and delivers a completed output.</p>
+
+    <p>The human is only in the picture twice: at the start to set the goal, and at the end to review the result. This is not an incremental improvement. This is a fundamentally different relationship with technology.</p>
+
+    <div class="comparison">
+      <div class="comp-side">
+        <div class="comp-label">Traditional AI</div>
+        <div class="comp-value">A brilliant assistant who answers your questions — one prompt at a time. You drive every step.</div>
+      </div>
+      <div class="comp-arrow">→</div>
+      <div class="comp-side">
+        <div class="comp-label">AI Agents</div>
+        <div class="comp-value">An autonomous team member who receives a goal and delivers the result. You set the destination, not the route.</div>
+      </div>
+    </div>
+
+    <!-- SECTION 2 -->
+    <div class="section-header">
+      <span class="section-num">02 —</span>
+      <h2 class="section-title">Multi-Agent Orchestration: Where It Gets Truly Powerful</h2>
+    </div>
+
+    <p>The most powerful agent setups do not use a single agent. They use <em>teams</em> of specialized agents, orchestrated by a manager agent — each with a distinct role, all working in parallel.</p>
+
+    <p>Here is what that looks like in practice. You give the system one instruction:</p>
+
+    <div class="pull-quote">
+      <p>"Prepare a competitive analysis of our top three competitors for the executive team, due Friday."</p>
+      <cite>One instruction. One goal. No further prompting required.</cite>
+    </div>
+
+    <div class="agent-box">
+      <div class="agent-box-header">How a multi-agent team handles this task</div>
+      <div class="agent-box-body">
+        <div class="agent-row">
+          <span class="agent-tag">Manager</span>
+          <span class="agent-desc">Receives the goal, decomposes it into sub-tasks, assigns to specialist agents, and synthesizes the final output.</span>
+        </div>
+        <div class="agent-row">
+          <span class="agent-tag">Research</span>
+          <span class="agent-desc">Scans competitor websites, recent news, job boards, earnings transcripts, and product announcements in parallel.</span>
+        </div>
+        <div class="agent-row">
+          <span class="agent-tag">Analyst</span>
+          <span class="agent-desc">Identifies patterns, strategic strengths, vulnerabilities, and positioning across all three competitors.</span>
+        </div>
+        <div class="agent-row">
+          <span class="agent-tag">Writer</span>
+          <span class="agent-desc">Drafts the report in your company's voice and format, with executive summary and supporting sections.</span>
+        </div>
+        <div class="agent-row">
+          <span class="agent-tag">Fact-Check</span>
+          <span class="agent-desc">Verifies every claim, flags unverified data, and clears the document before final delivery.</span>
+        </div>
+      </div>
+    </div>
+
+    <p>All four agents work simultaneously. The manager synthesizes their outputs. You receive a polished, cross-referenced competitive analysis — likely overnight — without writing a single additional prompt.</p>
+
+    <p>This is multi-agent orchestration. It is not theoretical. Salesforce (Agentforce), ServiceNow, and SAP are already embedding this infrastructure into enterprise workflows. The productivity gap between early adopters and everyone else is widening every quarter.</p>
+
+    <!-- SECTION 3 -->
+    <div class="section-header">
+      <span class="section-num">03 —</span>
+      <h2 class="section-title">The Cost of Not Switching — The Conversation Nobody Is Having</h2>
+    </div>
+
+    <p>Every article about AI agents focuses on what you <em>gain</em> by adopting them. Almost nobody is talking about what you <em>lose</em> by waiting. Let us run the numbers on a single knowledge-work function: competitive intelligence.</p>
+
+    <div class="cost-table">
+      <div class="cost-row">
+        <div class="cost-header">Traditional workflow</div>
+        <div class="cost-header">Agent-assisted workflow</div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-cell">2 analysts, ~3 days of research and synthesis</div>
+        <div class="cost-cell">Goal set in 10 minutes, synthesis completed overnight</div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-cell">Delivered monthly</div>
+        <div class="cost-cell">Available weekly — or on demand</div>
+      </div>
+      <div class="cost-row">
+        <div class="cost-cell"><strong>$4,000–$8,000</strong> per report (labor hours)</div>
+        <div class="cost-cell highlight"><strong>$40–$120</strong> per report (compute cost)</div>
+      </div>
+    </div>
+
+    <p>That is not a 10% efficiency gain. That is a structural cost realignment. Now multiply this across every knowledge-work function in your business: market research, customer analysis, legal review, financial reporting, HR screening, customer support.</p>
+
+    <div class="data-callout">
+      <div class="data-stat">
+        <div class="data-number">40–70%</div>
+        <div class="data-label">Reduction in knowledge-work cycle time reported by early agent adopters</div>
+      </div>
+      <div class="data-stat">
+        <div class="data-number">18 mo.</div>
+        <div class="data-label">Estimated head start for companies deploying agents in 2026 vs. 2027</div>
+      </div>
+      <div class="data-stat">
+        <div class="data-number">10×</div>
+        <div class="data-label">Leverage ratio for agent-assisted teams vs. traditional knowledge work teams</div>
+      </div>
+    </div>
+
+    <p>Companies running agents across these functions are not just cheaper to operate — they move faster, have better information, and make decisions your team will not reach until next quarter or next year. <strong>The 18-month clock is already ticking.</strong> Every month you delay is a month your competitors spend building workflows you will have to reverse-engineer.</p>
+
+    <!-- SECTION 4 -->
+    <div class="section-header">
+      <span class="section-num">04 —</span>
+      <h2 class="section-title">3 Industries Already Being Disrupted</h2>
+    </div>
+
+    <p>The disruption is not coming. In these three sectors, it is already well underway.</p>
+
+    <div class="industry">
+      <div class="industry-label">
+        <span class="industry-num">I.</span>
+        <span class="industry-name">Healthcare Administration</span>
+      </div>
+      <p>The US healthcare system processes approximately 35 million prior authorization requests annually — a process costing around $80 per request and taking 3 to 7 business days. AI agents are compressing this to hours.</p>
+      <p>Forward-deployed health systems are using diagnostic support agents that review a patient's complete history, cross-reference current medical literature, and prepare clinical recommendations before the physician enters the room. The doctor's expertise is redirected to the judgment calls that genuinely require human intelligence. The disruption is not in clinical care — it is in the vast administrative layer surrounding it, which is being quietly restructured right now.</p>
+    </div>
+
+    <div class="industry">
+      <div class="industry-label">
+        <span class="industry-num">II.</span>
+        <span class="industry-name">Legal Services</span>
+      </div>
+      <p>Large law firms deploy armies of junior associates to conduct document review in litigation — an expensive process that can cost clients hundreds of thousands per engagement and take weeks to complete.</p>
+      <p>AI document review agents complete comparable work in hours. Contract analysis agents flag risk clauses with high accuracy. Discovery management agents handle millions of documents in complex litigation. Senior partners are increasingly using agents to prepare case strategy briefs before a single billable hour is logged. The billable-hour model has never faced more structural pressure than it does in 2026.</p>
+    </div>
+
+    <div class="industry">
+      <div class="industry-label">
+        <span class="industry-num">III.</span>
+        <span class="industry-name">Financial Services</span>
+      </div>
+      <p>Banks are deploying fraud detection agents that simultaneously monitor dozens of signals — transaction patterns, device fingerprints, behavioral indicators — and escalate anomalies in real time, far faster than human review teams can respond.</p>
+      <p>Report generation agents pull data from multiple internal systems and produce executive-ready briefs automatically. Customer service agents resolve complex inquiries without human escalation at rates that were unachievable two years ago. The institutions investing in agents now are not primarily cutting headcount — they are giving their existing teams significantly greater leverage, and building operational infrastructure that will represent a meaningful competitive moat within three years.</p>
+    </div>
+
+    <div class="divider">
+      <div class="divider-line"></div>
+      <div class="divider-ornament">✦</div>
+      <div class="divider-line"></div>
+    </div>
+
+    <!-- TAKEAWAYS -->
+    <div class="takeaways">
+      <div class="takeaways-header">3 Things Leaders Should Do Before Next Quarter</div>
+      <div class="takeaways-body">
+        <div class="takeaway-item">
+          <div class="takeaway-num">1</div>
+          <div class="takeaway-content">
+            <strong>Identify your highest-cost knowledge workflow.</strong>
+            <span>Not the most painful — the most expensive in time and labor. That is your pilot candidate. Running one agent-assisted workflow well is worth more than debating ten on a whiteboard.</span>
+          </div>
+        </div>
+        <div class="takeaway-item">
+          <div class="takeaway-num">2</div>
+          <div class="takeaway-content">
+            <strong>Do not automate chaos.</strong>
+            <span>Agents amplify your processes — including the broken ones. Before deploying an agent on any workflow, document that workflow clearly. If you cannot describe it simply in writing, you are not ready to automate it.</span>
+          </div>
+        </div>
+        <div class="takeaway-item">
+          <div class="takeaway-num">3</div>
+          <div class="takeaway-content">
+            <strong>Start thinking in goals, not tasks.</strong>
+            <span>The emerging professional skill is not prompt engineering — it is <em>goal decomposition</em>: the ability to clearly define what success looks like for a complex, multi-step process so an agent can be briefed accurately. This skill will separate effective leaders over the next three years.</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PREDICTION -->
+    <div class="prediction">
+      <div class="prediction-label">◆ The Bold Prediction</div>
+      <p>By Q4 2027, "deploy an agent vs. hire an employee" will be a standard business decision — as routine as "build vs. buy" became in the 1990s. The companies developing that decision framework now — including clarity on which decisions agents should never make — will write the playbook that everyone else adopts.</p>
+    </div>
+
+    <!-- ETHICS -->
+    <div class="ethics">
+      <div class="ethics-label">A note on what this means for people</div>
+      <p>AI agents will change jobs. That is true and worth saying directly. But the change is not simply "agents replace humans." The more accurate framing is: agents replace the <em>portions of jobs</em> that were always too transactional for human judgment anyway — the data gathering, the formatting, the cross-referencing, the first drafts. The decisions that carry genuine weight — which goals to set, which outputs to trust, which outcomes carry ethical or strategic consequence — those require human intelligence more than ever. Because someone must remain accountable for what the agents produce. The most important professional skill in an agent-driven world is not technical. It is judgment: the capacity to set clear goals, evaluate complex outputs, and take full responsibility for what happens next. That has never been more valuable — or more necessary.</p>
+    </div>
+
+    <!-- NEXT ISSUE -->
+    <div class="next-issue">
+      <div class="next-label">Coming next month — Issue #02</div>
+      <div class="next-title">Small Language Models: Why Tiny AI Wins the Enterprise Race</div>
+      <p class="next-desc">The cloud giants built their empires on massive models. But the next wave of enterprise AI may run on a laptop — and it is already outperforming GPT-4 on the tasks that matter most to your business. We break down why, and what it means for every technology decision you make in 2027.</p>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <div class="footer">
+    <div class="footer-brand">The <span>AI</span> Edge</div>
+    <div class="footer-info">
+      Issue #01 · June 2026<br>
+      Monthly · LinkedIn Newsletter<br>
+      Independent Analysis · No Sponsored Content
+    </div>
+  </div>
+
+</div>
+
+
+</body>
+</html>
