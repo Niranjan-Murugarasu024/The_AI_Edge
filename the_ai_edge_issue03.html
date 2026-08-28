@@ -120,12 +120,38 @@ sup a{border-bottom:none;font-family:var(--mono);font-size:12px;color:var(--red)
 .footer-brand span{color:var(--red);}
 .footer-info{font-family:var(--mono);font-size:12px;font-weight:600;color:#C8B89A;letter-spacing:0.8px;text-align:right;line-height:1.8;}
 @media(max-width:620px){
-  .masthead,.article-header,.article-body{padding-left:20px;padding-right:20px;}
-  .footer{padding:22px 20px;flex-direction:column;text-align:center;}
+  .masthead,.article-header,.article-body{padding-left:16px;padding-right:16px;}
+  .masthead{padding-top:28px;}
+  .masthead-name{font-size:clamp(34px,8vw,48px);}
+  .masthead-tagline{font-size:12px;letter-spacing:2px;}
+  .masthead-meta{font-size:11.5px;gap:8px 12px;padding:12px 0;}
+  .article-header{padding-top:26px;}
+  .article-label{font-size:11.5px;letter-spacing:1.5px;}
+  .article-title{font-size:clamp(24px,6.5vw,32px);line-height:1.22;}
+  .article-sub-title{font-size:17px;margin-bottom:14px;}
+  .article-subtitle{font-size:16px;padding-left:12px;line-height:1.65;}
+  .article-byline{font-size:11.5px;gap:8px 10px;padding:12px 0;}
+  .article-body{padding:26px 16px 40px;}
+  .article-body p{font-size:16.5px;line-height:1.8;}
+  .drop-cap::first-letter{font-size:3.6em;margin-right:6px;line-height:0.8;}
+  .sh,.sh-title{font-size:21px;}
+  .pull-quote{margin:24px 0;padding:20px 16px;}
+  .pull-quote p{font-size:19px;}
+  .callout-block{grid-template-columns:1fr 1fr;gap:14px;padding:18px 14px;}
+  .data-num{font-size:28px;}
+  .data-lbl{font-size:11px;}
+  .insight-box{padding:18px 14px;}
+  .action-header,.tk-header{font-size:11.5px;padding:10px 14px;}
+  .action-body,.tk-body{padding:16px 14px;}
+  .action-row{flex-direction:column;gap:6px;align-items:flex-start;}
+  .prediction{padding:24px 18px;}
+  .prediction p{font-size:18px;}
+  .ref-list li{font-size:13.5px;gap:8px;word-break:break-word;}
+  .ref-link{word-break:break-all;}
+  .footer{padding:24px 16px;flex-direction:column;text-align:center;gap:12px;}
   .footer-info{text-align:center;}
-  .pull-quote{margin:24px 0;}
-  .callout-block{grid-template-columns:1fr 1fr;}
-  .top-strip{flex-direction:column;text-align:center;}
+  .top-strip{padding:10px 16px;font-size:12px;flex-direction:row;justify-content:space-between;}
+  .strip-hide-mobile{display:none;}
 }
 </style>
 </head>
@@ -133,8 +159,8 @@ sup a{border-bottom:none;font-family:var(--mono);font-size:12px;color:var(--red)
 <div class="page">
 
 <div class="top-strip">
-  <span><a href="index.html">← Back to The AI Edge</a></span>
-  <span>Monthly · AI Technology · Est. 2026</span>
+  <span><a href="index.html">← Back to Home</a></span>
+  <span class="strip-hide-mobile">Monthly · AI Technology · Est. 2026</span>
   <span>Issue No. 03</span>
 </div>
 

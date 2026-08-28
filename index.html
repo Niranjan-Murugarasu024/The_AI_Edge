@@ -1227,8 +1227,20 @@
   }
 
   /* ═════════════════════════════════════════════════════════════════════════
-     13. RESPONSIVE DESIGN (BREAKPOINTS)
+     13. RESPONSIVE DESIGN (BREAKPOINTS & ACCESSIBILITY)
      ═════════════════════════════════════════════════════════════════════════ */
+  /* Scroll margin offset for smooth anchor jumps under sticky header */
+  #issues-feed,
+  #standards,
+  #subscribe,
+  .featured-section,
+  .feed-section,
+  .standards-section,
+  .subscribe-section,
+  .masthead {
+    scroll-margin-top: 90px;
+  }
+
   @media (max-width: 960px) {
     .featured-card {
       grid-template-columns: 1fr;
@@ -1256,10 +1268,36 @@
       padding-right: 20px;
     }
     .top-strip {
-      padding: 12px 18px;
+      padding: 8px 16px;
       flex-direction: column;
       text-align: center;
-      gap: 10px;
+      gap: 6px;
+    }
+    .top-strip-left {
+      width: 100%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 11.5px;
+    }
+    .top-strip-right {
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 4px;
+      font-size: 11.5px;
+    }
+    .strip-hide-mobile {
+      display: none;
+    }
+    .top-nav-link {
+      padding: 4px 6px;
+      min-height: 38px;
+      display: inline-flex;
+      align-items: center;
     }
     .metrics-strip {
       grid-template-columns: repeat(2, 1fr);
@@ -1274,20 +1312,207 @@
       grid-template-columns: 1fr;
     }
     .featured-main {
-      padding: 30px 20px;
+      padding: 28px 20px;
     }
     .featured-sidebar {
-      padding: 26px 20px;
+      padding: 24px 20px;
     }
     .sub-form {
       flex-direction: column;
+      gap: 12px;
+    }
+    .sub-btn {
+      width: 100%;
+      min-height: 48px;
+      justify-content: center;
+      display: flex;
+      align-items: center;
     }
     .footer {
       flex-direction: column;
       text-align: center;
+      gap: 20px;
+    }
+    .footer-links {
+      justify-content: center;
     }
     .footer-colophon {
       text-align: center;
+    }
+  }
+
+  @media (max-width: 540px) {
+    .masthead {
+      padding: 28px 16px 24px;
+    }
+    .masthead-folio-top {
+      flex-direction: column;
+      gap: 4px;
+      text-align: center;
+      font-size: 11px;
+      margin-bottom: 18px;
+      padding-bottom: 10px;
+    }
+    .brand-logo-img {
+      max-height: 120px;
+    }
+    .masthead-tagline {
+      font-size: 12px;
+      letter-spacing: 2px;
+      margin-bottom: 10px;
+    }
+    .masthead-desc {
+      font-size: 16px;
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+    .masthead-metadata-bar {
+      font-size: 11px;
+      gap: 8px 12px;
+      padding-top: 12px;
+    }
+    .metric-item {
+      padding: 16px 10px;
+    }
+    .metric-val {
+      font-size: 28px;
+    }
+    .metric-label {
+      font-size: 10.5px;
+      letter-spacing: 0.8px;
+    }
+    .content-area {
+      padding: 32px 14px 44px;
+    }
+    .section-label-bar {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      margin-bottom: 18px;
+    }
+    .featured-main {
+      padding: 22px 14px;
+    }
+    .featured-title {
+      font-size: 24px;
+    }
+    .featured-subtitle {
+      font-size: 17px;
+      margin-bottom: 14px;
+    }
+    .featured-deck {
+      font-size: 15px;
+      line-height: 1.7;
+      padding-left: 12px;
+      margin-bottom: 18px;
+    }
+    .featured-footer {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 12px;
+      padding-top: 16px;
+    }
+    .cta-btn {
+      width: 100%;
+      min-height: 48px;
+      justify-content: center;
+    }
+    .featured-meta-info {
+      justify-content: center;
+      font-size: 11.5px;
+    }
+    .featured-sidebar {
+      padding: 20px 14px;
+    }
+    .feed-controls-box {
+      padding: 16px 12px;
+    }
+    .search-input {
+      padding: 11px 36px 11px 36px;
+      font-size: 12.5px;
+    }
+    .filter-taxonomy {
+      flex-direction: column;
+      align-items: stretch;
+      gap: 10px;
+    }
+    .filter-pills {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 6px;
+    }
+    .filter-btn {
+      padding: 8px 6px;
+      font-size: 10.5px;
+      text-align: center;
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .feed-status-line {
+      justify-content: center;
+      font-size: 11px;
+    }
+    .issue-entry {
+      padding: 20px 14px;
+    }
+    .entry-top {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 6px;
+      margin-bottom: 10px;
+    }
+    .entry-title {
+      font-size: 21px;
+    }
+    .entry-deck {
+      font-size: 15px;
+      line-height: 1.65;
+    }
+    .entry-footer {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 8px;
+      padding-top: 12px;
+    }
+    .entry-read-link {
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+    }
+    .standards-section {
+      padding: 28px 14px;
+    }
+    .standards-title {
+      font-size: 23px;
+    }
+    .standard-card {
+      padding: 18px 14px;
+    }
+    .subscribe-section {
+      padding: 32px 14px;
+    }
+    .sub-title {
+      font-size: 23px;
+    }
+    .sub-trust-badges {
+      flex-direction: column;
+      gap: 6px;
+      font-size: 11px;
+    }
+    .footer {
+      padding: 28px 14px;
+    }
+    .footer-links {
+      flex-direction: column;
+      gap: 10px;
+      align-items: center;
+    }
+    .footer-link {
+      min-height: 40px;
+      display: inline-flex;
+      align-items: center;
     }
   }
 
@@ -1315,9 +1540,8 @@
   <div class="top-strip">
     <div class="top-strip-left">
       <span class="journal-vol">Vol. 1 · Issue #03</span>
-      <span class="strip-divider">·</span>
-      <span>August 2026</span>
-      <span class="strip-divider">·</span>
+      <span class="strip-divider strip-hide-mobile">·</span>
+      <span class="strip-hide-mobile">August 2026</span>
       <span class="pulse-indicator"><span class="pulse-dot" aria-hidden="true"></span> Latest Issue Live</span>
     </div>
     <nav class="top-strip-right" aria-label="Quick Publication Navigation">
