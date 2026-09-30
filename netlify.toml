@@ -3,6 +3,10 @@
   command = "echo 'Static assets ready'"
   functions = "netlify/functions"
 
+[build.environment]
+  SECRETS_SCAN_OMIT_KEYS = "SMTP_FROM_NAME,PORT,SMTP_HOST,SMTP_PORT,SMTP_SECURE,SMTP_FROM_EMAIL,SMTP_REPLY_TO,TEST_RECIPIENT_EMAIL"
+  SECRETS_SCAN_OMIT_PATHS = ".env.example,README.md"
+
 [functions]
   node_bundler = "esbuild"
 
