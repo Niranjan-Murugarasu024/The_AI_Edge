@@ -1,6 +1,10 @@
 [build]
   publish = "."
+  command = "echo 'Static assets ready'"
   functions = "netlify/functions"
+
+[functions]
+  node_bundler = "esbuild"
 
 # Redirect /api/subscribe to Netlify serverless function
 [[redirects]]
