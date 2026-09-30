@@ -182,6 +182,23 @@ function generateWelcomeEmail({ recipientEmail, siteUrl = 'https://theaiedge.net
                 LATEST PUBLISHED ISSUES (START READING)
               </div>
 
+              <!-- Issue #04 -->
+              <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 12px; border-bottom: 1px solid #26160E; padding-bottom: 12px;">
+                <tr>
+                  <td valign="top" style="width: 70px; font-family: 'Space Mono', monospace; font-size: 11px; color: #B83200; font-weight: bold; padding-top: 2px;">
+                    ISSUE #04
+                  </td>
+                  <td valign="top">
+                    <div style="font-family: 'Playfair Display', Georgia, serif; font-size: 16px; font-weight: 600; color: #F0E8DC; line-height: 1.3;">
+                      <a href="${siteUrl}/the_ai_edge_issue04.html" style="color: #F0E8DC; text-decoration: none;">The AI Safety Debate Has a Timing Problem</a>
+                    </div>
+                    <div style="font-size: 13px; color: #9A8C7C; margin-top: 4px; line-height: 1.4;">
+                      October 2026 · 12 Min Read · The sandbox escape, recursive self-improvement, and the $530B gap.
+                    </div>
+                  </td>
+                </tr>
+              </table>
+
               <!-- Issue #03 -->
               <table border="0" cellpadding="0" cellspacing="0" width="100%" style="margin-bottom: 12px; border-bottom: 1px solid #26160E; padding-bottom: 12px;">
                 <tr>
@@ -303,13 +320,16 @@ OUR EDITORIAL COMMITMENT TO YOU
 -------------------------------------------------------
 LATEST PUBLISHED ISSUES (START READING)
 -------------------------------------------------------
-1. Issue #03: The Last Profession to Fall — AI in Legal & Compliance (August 2026)
+1. Issue #04: The AI Safety Debate Has a Timing Problem (October 2026)
+   Link: ${siteUrl}/the_ai_edge_issue04.html
+
+2. Issue #03: The Last Profession to Fall — AI in Legal & Compliance (August 2026)
    Link: ${siteUrl}/the_ai_edge_issue03.html
 
-2. Issue #02: Small But Lethal — The Rise of Small Language Models (July 2026)
+3. Issue #02: Small But Lethal — The Rise of Small Language Models (July 2026)
    Link: ${siteUrl}/the_ai_edge_issue02.html
 
-3. Issue #01: AI Agents — The End of Traditional Workflows (June 2026)
+4. Issue #01: AI Agents — The End of Traditional Workflows (June 2026)
    Link: ${siteUrl}/the_ai_edge_issue01.html
 
 Explore the complete journal archive:

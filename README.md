@@ -9,6 +9,7 @@ Welcome to the repository for **The AI Edge**. This repository holds the publish
 *   **[Issue #01: AI Agents — The End of Traditional Workflows](file:///d:/Ai-edge/the_ai_edge_issue01.html)** (June 2026)
 *   **[Issue #02: Small But Lethal — The Rise of Small Language Models](file:///d:/Ai-edge/the_ai_edge_issue02.html)** (July 2026)
 *   **[Issue #03: The Last Profession to Fall — AI in Legal & Compliance](file:///d:/Ai-edge/the_ai_edge_issue03.html)** (August 2026)
+*   **[Issue #04: The AI Safety Debate Has a Timing Problem](file:///d:/Ai-edge/the_ai_edge_issue04.html)** (October 2026)
 
 ---
 
